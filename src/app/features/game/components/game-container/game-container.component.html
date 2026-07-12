@@ -1,0 +1,22 @@
+<div class="game-wrapper">
+  <canvas #gameCanvas></canvas>
+
+  <app-game-hud
+    *ngIf="status === GameStatus.Playing"
+    [score]="score"
+    [lives]="lives"
+  ></app-game-hud>
+
+  <app-start-screen
+    *ngIf="status === GameStatus.Idle"
+    (start)="startGame()"
+  ></app-start-screen>
+
+  <app-game-over-screen
+    *ngIf="status === GameStatus.GameOver"
+    [score]="score"
+    (retry)="startGame()"
+  ></app-game-over-screen>
+
+  <app-screamer-overlay [active]="showScreamer"></app-screamer-overlay>
+</div>

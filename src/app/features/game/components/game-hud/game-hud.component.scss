@@ -1,0 +1,30 @@
+.hud {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 40px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.stat-box {
+  background: rgba(16, 16, 20, 0.75);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 12px 24px;
+  border-radius: 12px;
+  color: #eff0f3;
+  font-size: 1.2rem;
+  font-weight: 600;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+
+  span {
+    color: #00ffcc;
+  }
+
+  .lives-text {
+    color: #ff4a5a;
+  }
+}

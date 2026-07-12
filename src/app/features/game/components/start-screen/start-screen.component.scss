@@ -1,0 +1,32 @@
+@import '../../../../shared/styles/overlay';
+
+/* Ensure the card layout allows absolute positioning inside it */
+.relative-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: visible; /* Allows the character asset to pop out of borders if needed */
+}
+
+/* Make sure typography stays explicitly on top of the image */
+.relative-card h1,
+.relative-card .description-text,
+.relative-card .btn {
+  position: relative;
+  z-index: 2;
+}
+
+/* Character image spatial alignment configuration */
+.menu-character {
+  position: absolute;
+  bottom: 20%; /* Adjust this value to position her higher or lower relative to the button */
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 450px; /* Constraints the size nicely within standard component overlays */
+  width: 90%;
+  height: auto;
+  z-index: 1; /* Sits between the background card and the active text elements */
+  pointer-events: none;
+  opacity: 0.85;
+}
