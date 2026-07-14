@@ -43,6 +43,23 @@ describe('GameStateService', () => {
     expect(service.status).toBe(GameStatus.GameOver);
   });
 
+  it('should switch to Loading status and reset progress on startLoading()', (done) => {
+    service.startLoading();
+    expect(service.status).toBe(GameStatus.Loading);
+    service.loadingProgress$.subscribe((progress) => {
+      expect(progress).toBe(0);
+      done();
+    });
+  });
+
+  it('should clamp loading progress between 0 and 100', (done) => {
+    service.setLoadingProgress(150);
+    service.loadingProgress$.subscribe((progress) => {
+      expect(progress).toBe(100);
+      done();
+    });
+  });
+
   it('should emit lifeLost$ once per loseLife() call', () => {
     service.reset();
     let emissions = 0;

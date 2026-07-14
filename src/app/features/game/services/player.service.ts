@@ -13,20 +13,28 @@ import { GAME_CONFIG } from '../constants/game.config';
 export class PlayerService {
   public player!: THREE.Group;
 
-  public load(scene: THREE.Scene): Promise<void> {
+  /** Cached after the first successful load so retries don't hit the network again. */
+  private template: THREE.Group | null = null;
+
+  public async load(scene: THREE.Scene): Promise<void> {
+    if (!this.template) {
+      this.template = await this.fetchTemplate();
+    }
+
+    this.player = this.template.clone();
+    this.player.scale.set(1, 1, 1);
+    this.player.position.set(0, GAME_CONFIG.PLAYER_Y, 0);
+    this.player.rotation.y = Math.PI;
+    scene.add(this.player);
+  }
+
+  private fetchTemplate(): Promise<THREE.Group> {
     const loader = new GLTFLoader();
 
     return new Promise((resolve, reject) => {
       loader.load(
         GAME_CONFIG.PLAYER_MODEL,
-        (gltf) => {
-          this.player = gltf.scene;
-          this.player.scale.set(1, 1, 1);
-          this.player.position.set(0, GAME_CONFIG.PLAYER_Y, 0);
-          this.player.rotation.y = Math.PI;
-          scene.add(this.player);
-          resolve();
-        },
+        (gltf) => resolve(gltf.scene),
         undefined,
         (error) => {
           console.error('Error loading market_cart.glb:', error);

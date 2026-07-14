@@ -25,6 +25,7 @@ export class GameContainerComponent implements OnInit, OnDestroy {
   public lives = 0;
   public status: GameStatus = GameStatus.Idle;
   public showScreamer = false;
+  public loadingProgress = 0;
 
   private screamerTimeoutId: any;
   private readonly destroy$ = new Subject<void>();
@@ -76,6 +77,9 @@ export class GameContainerComponent implements OnInit, OnDestroy {
     });
 
     this.gameState.lifeLost$.pipe(takeUntil(this.destroy$)).subscribe(() => this.triggerScreamer());
+    this.gameState.loadingProgress$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((progress) => (this.loadingProgress = progress));
   }
 
   private triggerScreamer(): void {

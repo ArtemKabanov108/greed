@@ -1,0 +1,9 @@
+<div class="overlay">
+  <div class="card">
+    <h1>Завантаження...</h1>
+    <div class="progress-track">
+      <div class="progress-fill" [style.width.%]="progress"></div>
+    </div>
+    <p>{{ progress | number: '1.0-0' }}%</p>
+  </div>
+</div>

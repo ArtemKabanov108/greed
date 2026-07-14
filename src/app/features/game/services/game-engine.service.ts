@@ -4,6 +4,10 @@ import { PlayerService } from './player.service';
 import { SpawnerService } from './spawner.service';
 import { PhysicsService } from './physics.service';
 import { GameStateService } from './game-state.service';
+import { CLOTHING_ASSET_PATHS } from '../constants/game.config';
+
+/** Loading steps: the player cart model + one step per clothing template. */
+const TOTAL_LOADING_STEPS = 1 + CLOTHING_ASSET_PATHS.length;
 
 /**
  * Orchestrates the game loop by wiring together the single-purpose
@@ -28,12 +32,20 @@ export class GameEngineService {
 
   public async start(canvasRef: ElementRef<HTMLCanvasElement>): Promise<void> {
     this.stop();
-    this.gameStateService.reset();
+    this.gameStateService.startLoading();
+
+    let completedSteps = 0;
+    const reportStepDone = () => {
+      completedSteps++;
+      this.gameStateService.setLoadingProgress((completedSteps / TOTAL_LOADING_STEPS) * 100);
+    };
 
     this.sceneService.init(canvasRef.nativeElement);
     await this.playerService.load(this.sceneService.scene);
-    await this.spawnerService.preloadTemplates();
+    reportStepDone();
+    await this.spawnerService.preloadTemplates(reportStepDone);
 
+    this.gameStateService.reset();
     this.isRunning = true;
     this.spawnerService.start((item) => this.physicsService.addItem(item, this.sceneService.scene));
     this.ngZone.runOutsideAngular(() => this.animate());

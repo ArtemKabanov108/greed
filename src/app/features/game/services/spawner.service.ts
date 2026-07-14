@@ -14,8 +14,11 @@ export class SpawnerService {
   private templates: THREE.Group[] = [];
   private spawnTimeoutId: any;
 
-  public preloadTemplates(): Promise<void> {
+  /** onItemReady fires once per clothing item as it finishes loading (or fails) — used to drive a progress bar. */
+  public preloadTemplates(onItemReady?: () => void): Promise<void> {
     if (this.templates.length > 0) {
+      // Already cached from a previous playthrough (e.g. "Try Again") — report instantly, no network needed.
+      this.templates.forEach(() => onItemReady?.());
       return Promise.resolve();
     }
 
@@ -27,11 +30,13 @@ export class SpawnerService {
             url,
             (gltf) => {
               this.templates.push(gltf.scene);
+              onItemReady?.();
               resolve();
             },
             undefined,
             (error) => {
               console.error(`Failed to preload dynamic asset at: ${url}`, error);
+              onItemReady?.(); // Do not stall the progress bar if one model fails
               resolve(); // Do not crash the entire loading pipeline if one model fails
             }
           );

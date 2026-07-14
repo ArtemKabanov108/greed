@@ -12,6 +12,11 @@
     (start)="startGame()"
   ></app-start-screen>
 
+  <app-loading-screen
+    *ngIf="status === GameStatus.Loading"
+    [progress]="loadingProgress"
+  ></app-loading-screen>
+
   <app-game-over-screen
     *ngIf="status === GameStatus.GameOver"
     [score]="score"

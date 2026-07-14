@@ -6,6 +6,7 @@ import { StartScreenComponent } from './components/start-screen/start-screen.com
 import { GameHudComponent } from './components/game-hud/game-hud.component';
 import { GameOverScreenComponent } from './components/game-over-screen/game-over-screen.component';
 import { ScreamerOverlayComponent } from './components/screamer-overlay/screamer-overlay.component';
+import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { ScreamerOverlayComponent } from './components/screamer-overlay/screamer
     StartScreenComponent,
     GameHudComponent,
     GameOverScreenComponent,
-    ScreamerOverlayComponent
+    ScreamerOverlayComponent,
+    LoadingScreenComponent
   ],
   imports: [CommonModule],
   exports: [GameContainerComponent]

@@ -15,15 +15,27 @@ export class GameStateService {
   private readonly livesSubject = new BehaviorSubject<number>(GAME_CONFIG.INITIAL_LIVES);
   private readonly statusSubject = new BehaviorSubject<GameStatus>(GameStatus.Idle);
   private readonly lifeLostSubject = new Subject<void>();
+  private readonly loadingProgressSubject = new BehaviorSubject<number>(0);
 
   public readonly score$ = this.scoreSubject.asObservable();
   public readonly lives$ = this.livesSubject.asObservable();
   public readonly status$ = this.statusSubject.asObservable();
   /** Fires once per lost life — used to trigger transient UI/audio (screamer). */
   public readonly lifeLost$ = this.lifeLostSubject.asObservable();
+  /** 0–100 while status is Loading. */
+  public readonly loadingProgress$ = this.loadingProgressSubject.asObservable();
 
   public get status(): GameStatus {
     return this.statusSubject.value;
+  }
+
+  public startLoading(): void {
+    this.loadingProgressSubject.next(0);
+    this.statusSubject.next(GameStatus.Loading);
+  }
+
+  public setLoadingProgress(percent: number): void {
+    this.loadingProgressSubject.next(Math.min(100, Math.max(0, percent)));
   }
 
   public reset(): void {
