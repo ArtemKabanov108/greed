@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-game-over-screen',
   templateUrl: './game-over-screen.component.html',
-  styleUrls: ['./game-over-screen.component.scss']
+  styleUrls: ['./game-over-screen.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GameOverScreenComponent {
   @Input() public score = 0;
