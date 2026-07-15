@@ -21,6 +21,7 @@
     *ngIf="status === GameStatus.GameOver"
     [score]="score"
     (retry)="startGame()"
+    (menu)="exitToMenu()"
   ></app-game-over-screen>
 
   <app-screamer-overlay [active]="showScreamer"></app-screamer-overlay>

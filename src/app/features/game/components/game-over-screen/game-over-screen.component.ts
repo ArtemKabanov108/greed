@@ -8,8 +8,13 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class GameOverScreenComponent {
   @Input() public score = 0;
   @Output() public retry = new EventEmitter<void>();
+  @Output() public menu = new EventEmitter<void>();
 
   public onRetry(): void {
     this.retry.emit();
+  }
+
+  public onMenu(): void {
+    this.menu.emit();
   }
 }

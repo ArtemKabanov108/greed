@@ -1,1 +1,21 @@
 @import '../../../../shared/styles/overlay';
+
+.button-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-secondary {
+  background: rgba(255, 74, 90, 0.2);
+  border: 1px solid rgba(255, 74, 90, 0.5);
+  color: #ff4a5a;
+
+  &:hover {
+    background: rgba(255, 74, 90, 0.4);
+    border-color: rgba(255, 74, 90, 0.8);
+    box-shadow: 0 10px 20px rgba(255, 74, 90, 0.2);
+  }
+}

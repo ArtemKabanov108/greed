@@ -2,6 +2,9 @@
   <div class="card error-border">
     <h1 class="game-over-title">GAME OVER</h1>
     <p>You caught <strong>{{ score }}</strong> items!</p>
-    <button class="btn" (click)="onRetry()">TRY AGAIN</button>
+    <div class="button-group">
+      <button class="btn" (click)="onRetry()">TRY AGAIN</button>
+      <button class="btn btn-secondary" (click)="onMenu()">EXIT TO MENU</button>
+    </div>
   </div>
 </div>

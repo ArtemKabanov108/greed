@@ -45,6 +45,11 @@ export class GameContainerComponent implements OnInit, OnDestroy {
     this.gameEngine.start(this.gameCanvas);
   }
 
+  public exitToMenu(): void {
+    this.gameEngine.stop();
+    this.gameState.goToMenu();
+  }
+
   @HostListener('window:mousemove', ['$event'])
   public onMouseMove(event: MouseEvent): void {
     if (this.status === GameStatus.Playing) {

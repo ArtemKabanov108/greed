@@ -44,6 +44,11 @@ export class GameStateService {
     this.statusSubject.next(GameStatus.Playing);
   }
 
+  /** Returns to the main menu (start screen) without touching score/lives — they get reset on next start(). */
+  public goToMenu(): void {
+    this.statusSubject.next(GameStatus.Idle);
+  }
+
   public addScore(points = 1): void {
     this.scoreSubject.next(this.scoreSubject.value + points);
   }
